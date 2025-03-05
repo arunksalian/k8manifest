@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/arunksalian/k8manifest.git'  # Replace with your GitHub repo
+    targetRevision: main
+    path: k8s  # The folder where your YAML files are stored
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
